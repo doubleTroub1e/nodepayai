@@ -2,8 +2,8 @@
 An unofficial Docker Image for [app.nodepay.ai](https://app.nodepay.ai/register?ref=3iXL7IuXXwKQVE6)
 Available on [Docker Hub](https://hub.docker.com/r/camislav/grass)
 
-## What's Grass?
-Grass allows you to earn passive income by sharing your network bandwidth
+## What's NodePay?
+NodePay allows you to earn passive income by sharing your network bandwidth
 
 ## How to get started?
 1. Register a Nodepay Account if you don't have one already: [app.nodepay.ai](https://app.nodepay.ai/register?ref=3iXL7IuXXwKQVE6)
@@ -19,7 +19,7 @@ docker run -d \
     -e NODEPAY_USER=myuser@mail.com \
     -e NODEPAY_PASS=mypass \
     -e ALLOW_DEBUG=False \
-    camislav/grass
+    double2trouble/nodepay:latest
 ```
 
 Please replace 8080 with the port you want to be able to access the status with, as well as NODEPAY_USER and NODEPAY_PASS

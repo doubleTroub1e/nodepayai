@@ -3,7 +3,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
-from selenium.common.exceptions import WebDriverException, NoSuchDriverException
+from selenium.common.exceptions import WebDriverException, NoSuchDriverException, TimeoutException, NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
@@ -95,14 +95,33 @@ print('Started! Logging in...')
 set_desktop_resolution(driver, 1920, 1080)
 driver.get('https://app.nodepay.ai/')
 
-sleep = 0
+sleep = 2
 while True:
     try:
-        driver.find_element(By.XPATH, '//*[@id="basic_user"]')
-        driver.find_element(By.XPATH, '//*[@id="basic_password"]')
-        driver.find_element(By.XPATH, '//*[@type="submit"]')
+        # Wait for either the close button or the login form elements to be present
+        close_button = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.XPATH, '//button[@aria-label="Close"]'))
+        )
+        if close_button.is_displayed():
+            close_button.click()
+            print('Close button clicked! Proceeding with login.')
+            continue  # Continue to check for login form elements
+    except (TimeoutException, NoSuchElementException):
+        # If the close button is not found, continue to check for the login form elements
+        pass
+
+    try:
+        WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="basic_user"]'))
+        )
+        WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="basic_password"]'))
+        )
+        WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@type="submit"]'))
+        )
         break
-    except:
+    except TimeoutException:
         time.sleep(1)
         print('Loading login form...')
         sleep += 1
@@ -111,6 +130,7 @@ while True:
             generate_error_report(driver)
             driver.quit()
             exit()
+
 
 user = driver.find_element(By.XPATH, '//*[@id="basic_user"]')
 passw = driver.find_element(By.XPATH, '//*[@id="basic_password"]')
