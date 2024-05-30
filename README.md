@@ -1,6 +1,6 @@
 # NodePay
 An unofficial Docker Image for [app.nodepay.ai](https://app.nodepay.ai/register?ref=3iXL7IuXXwKQVE6)
-Available on [Docker Hub](https://hub.docker.com/r/camislav/grass)
+Available on [Docker Hub](https://hub.docker.com/r/double2trouble/nodepay)
 
 ## What's NodePay?
 NodePay allows you to earn passive income by sharing your network bandwidth

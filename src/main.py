@@ -88,14 +88,14 @@ except (WebDriverException, NoSuchDriverException):
         print('Could not start with manual path! Exiting...')
         exit()
 
-def set_desktop_resolution(driver, width=1920, height=1080):
+def set_desktop_resolution(driver, width=1024, height=768):
     driver.set_window_size(width, height)
 
 print('Started! Logging in...')
-set_desktop_resolution(driver, 1920, 1080)
+set_desktop_resolution(driver, 1024, 768)
 driver.get('https://app.nodepay.ai/')
 
-sleep = 2
+sleep = 0
 while True:
     try:
         # Wait for either the close button or the login form elements to be present
